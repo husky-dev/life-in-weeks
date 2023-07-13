@@ -18,9 +18,10 @@ export const CalendarWeek: FC<Props> = ({ className, periods = [], animating, on
         'w-3 h-3',
         'flex flex-col',
         'rounded-sm overflow-hidden',
-        'hover:opacity-80',
+        'hover:opacity-50',
+        'transition-opacity',
         showPointer && 'cursor-pointer',
-        showBorder && !animating && 'border border-carbon-gray/50',
+        showBorder && !animating && 'border border-dove-gray/50',
         animating && 'animate-pulse bg-carbon-gray',
         className,
       )}

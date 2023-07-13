@@ -12,7 +12,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
  */
 
 module.exports = {
-  content: ['./src/index.tsx', './src/components/**/*.{js,jsx,ts,tsx}', './src/pages/**/*.{js,jsx,ts,tsx}'],
+  content: ['./public/*.html', './src/index.tsx', './src/components/**/*.{js,jsx,ts,tsx}', './src/pages/**/*.{js,jsx,ts,tsx}'],
   theme: {
     screens: {
       sm: '640px',
@@ -24,7 +24,10 @@ module.exports = {
     extend: {
       colors: {
         'black': '#000000',
+        'bark-jungle-green': '#1E1E1E',
         'white': '#ffffff',
+        'white-smoke': '#F5F5F5',
+        'dove-gray': '#6C6C6C',
         'carbon-gray': '#5C5B5D',
       },
       fontFamily: {

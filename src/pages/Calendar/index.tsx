@@ -1,4 +1,5 @@
 import { CalendarWeek } from '@components/Calendar';
+import { PageFooter } from '@components/Page';
 import { DatePeriod, isDateInsidePeriod, lifePeriodsForPeriod, weeksWithStartDate, yearsWithStartDate } from '@core/periods';
 import { useStorage } from '@core/storage';
 import { mc, StyleProps } from '@styles';
@@ -21,7 +22,7 @@ export const CalenderPage: FC<Props> = ({ className }) => {
     return (
       <div key={`${year}`} className={mc('flex flex-row justify-center items-center mb-1')}>
         <div className="relative flex flex-row justify-center">
-          <div className={mc('absolute w-[20px] left-[-24px]', 'text-xs font-bold text-right')}>
+          <div className={mc('absolute w-[20px] left-[-24px]', 'text-xs text-dove-gray font-bold text-right')}>
             <div>{getFullYearsBetweenDates(birthdayTs, year) + 1}</div>
           </div>
           {weeks.map(week => renderWeek(week))}
@@ -45,9 +46,20 @@ export const CalenderPage: FC<Props> = ({ className }) => {
 
   return (
     <div className={mc(className)}>
-      <div className={mc('container', 'mx-auto', 'py-16')}>
-        <h1 className={mc('text-center text-2xl')}>{'Your Life in Weeks'}</h1>
-        <div className={mc('mt-10')}>{years.map(year => renderYear(year))}</div>
+      <div className={mc('container', 'mx-auto', 'py-10 space-y-6')}>
+        <h1 className={mc('text-center text-2xl font-semibold')}>{'Your Life in Weeks'}</h1>
+        <div className={mc('text-dove-gray text-center')}>
+          <p>
+            {`This is a web application inspired by Tim Urban's article, `}
+            <a className="underline" href="https://waitbutwhy.com/2014/05/life-weeks.html" target="__blank" rel="nofollow">
+              {`"Your Life in Weeks"`}
+            </a>
+            {`. It helps you visualize your entire life in weeks.`}
+          </p>
+          <p>{'It would be beneficial to read this article first to better understand what this app is about.'}</p>
+        </div>
+        <div>{years.map(year => renderYear(year))}</div>
+        <PageFooter />
       </div>
     </div>
   );
