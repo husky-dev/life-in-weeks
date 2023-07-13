@@ -21,7 +21,7 @@ type Props = StyleProps;
 
 export const CalenderPage: FC<Props> = ({ className }) => {
   const curTs = useMemo(() => ts(), []);
-  const { birthday, periods, setBirthday, setPeriods, setState } = useStorage();
+  const { birthday, periods, setState } = useStorage();
   const [hoveredPeriods, setHoveredPeriods] = useState<LifePeriod[]>([]);
 
   const birthdayTs = getDayBeginning(strToTs(birthday || '1990-01-01'));
@@ -106,7 +106,7 @@ export const CalenderPage: FC<Props> = ({ className }) => {
           <div className="col-span-2 relative">
             {!!hoveredPeriods.length && (
               <div className="sticky top-2">
-                <div className={mc('flex flex-col', 'space-y-2')}>
+                <div className={mc('flex flex-col', 'space-y-4')}>
                   {hoveredPeriods.map(itm => (
                     <CalendarPeriodInfo key={`${itm.start}-${itm.end}`} item={itm} />
                   ))}

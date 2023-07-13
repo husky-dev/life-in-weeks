@@ -40,8 +40,10 @@ export const CalendarPeriodInfo: FC<Props> = ({ testId, className, style, item }
     >
       <div className={mc('font-semibold')}>{name}</div>
       {!!description && <div className={mc('text-md')}>{description}</div>}
-      <div className={mc('text-xs')}>{`${tsToStr(start)} - ${tsToStr(end)}`}</div>
-      <div className={mc('text-xs')}>{`${periodToIntervalStr(item)}`}</div>
+      <div className="space-y-0.5">
+        <div className={mc('text-xs')}>{`${tsToStr(start)} - ${tsToStr(end)}`}</div>
+        <div className={mc('text-xs font-semibold')}>{`${periodToIntervalStr(item)}`}</div>
+      </div>
     </div>
   );
 };
