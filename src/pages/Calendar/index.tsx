@@ -10,7 +10,7 @@ import {
   weeksWithStartDate,
   yearsWithStartDate,
 } from '@core/periods';
-import { isState, useStorage } from '@core/storage';
+import { dataToState, useStorage } from '@core/storage';
 import { mc, StyleProps } from '@styles';
 import { getDayBeginning, getFullYearsBetweenDates, isStr, strToTs, ts, weekMs } from '@utils';
 import React, { ChangeEvent, FC, useMemo, useState } from 'react';
@@ -61,8 +61,8 @@ export const CalenderPage: FC<Props> = ({ className }) => {
       try {
         const result = e.target?.result;
         if (!result || !isStr(result)) return alert('Import file error');
-        const data = JSON.parse(result);
-        if (!isState(data)) return alert('Import file error');
+        const data = dataToState(JSON.parse(result));
+        if (!data) return alert('Import file error');
         setState(data);
       } catch (err) {
         log.err('Import file error', { err });

@@ -1,4 +1,4 @@
-import { isArr, isStrOrUndef, isUnknownDict } from '@utils';
+import { compact, isArr, isNum, isStr, isStrArr, isStrOrUndef, isUndef, isUnknownDict } from '@utils';
 import React, { createContext, FC, ReactNode, useContext, useMemo, useState } from 'react';
 
 import { getStorageParam } from './utils';
@@ -10,6 +10,30 @@ interface State {
 }
 
 export const isState = (val: unknown): val is State => isUnknownDict(val) && isStrOrUndef(val.birthday) && isArr(val.periods);
+
+export const dataToState = (data: unknown): State | undefined => {
+  if (!isUnknownDict(data)) {
+    return undefined;
+  }
+  const { birthday } = data;
+  if (!isStr(birthday)) return undefined;
+  if (!isArr(data.periods)) return { birthday, periods: [] };
+  const periods = compact(data.periods.map(dataToPeriod));
+  return { birthday, periods };
+};
+
+const dataToPeriod = (val: unknown): LifePeriod | undefined => {
+  if (!isUnknownDict(val)) return undefined;
+  const { name, start: rawStart, end: rawEnd } = val;
+  if (!isStr(name) || !(isStr(rawStart) || isNum(rawStart)) || !(isStr(rawEnd) || isNum(rawEnd))) return undefined;
+  const start = new Date(rawStart).getTime();
+  if (isNaN(start)) return undefined;
+  const end = new Date(rawEnd).getTime();
+  if (isNaN(end)) return undefined;
+  const color = isStr(val.color) ? val.color : '#eee';
+  const tags = isStrArr(val.tags) ? val.tags : [];
+  return { name, start, end, color, tags };
+};
 
 interface StorageContext extends State {
   setBirthday: (val: string | undefined) => void;
