@@ -1,12 +1,12 @@
 import { LifePeriod } from '@core/periods';
 import { mc, StyleProps } from '@styles';
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 
 interface Props extends StyleProps {
   periods?: LifePeriod[];
   animating?: boolean;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
+  onMouseEnter?: (e?: MouseEvent<HTMLDivElement>) => void;
+  onMouseLeave?: (e?: MouseEvent<HTMLDivElement>) => void;
 }
 
 export const CalendarWeek: FC<Props> = ({ className, periods = [], animating, onMouseEnter, onMouseLeave }) => {
