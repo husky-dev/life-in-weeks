@@ -26,9 +26,10 @@ module.exports = {
         'black': '#000000',
         'bark-jungle-green': '#1E1E1E',
         'white': '#ffffff',
-        'white-smoke': '#F5F5F5',
-        'dove-gray': '#6C6C6C',
+        'white-smoke': '#F5F5F5', // white background, rgb(245, 245, 245)
+        'dove-gray': '#6C6C6C', // secondary, rgb(108, 108, 108)
         'carbon-gray': '#5C5B5D',
+        'soft-peach': '#EEEEEE', // rgb(238, 238, 238)
       },
       fontFamily: {
         // 'montserrat': ['Montserrat', ...defaultTheme.fontFamily.sans],

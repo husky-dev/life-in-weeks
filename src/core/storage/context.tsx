@@ -14,12 +14,14 @@ export const isState = (val: unknown): val is State => isUnknownDict(val) && isS
 interface StorageContext extends State {
   setBirthday: (val: string | undefined) => void;
   setPeriods: (val: LifePeriod[]) => void;
+  setState: (val: State) => void;
 }
 
 const StorageContext = createContext<StorageContext>({
   periods: [],
   setBirthday: () => {},
   setPeriods: () => {},
+  setState: () => {},
 });
 
 export const useStorage = () => useContext(StorageContext);
@@ -40,7 +42,12 @@ export const StorageProvider: FC<{ children: ReactNode }> = ({ children }) => {
     stateStorage.set({ ...state, periods });
   };
 
-  const value = useMemo(() => ({ ...state, setBirthday, setPeriods }), [state]);
+  const setNewState = (newState: State) => {
+    setState(newState);
+    stateStorage.set(newState);
+  };
+
+  const value = useMemo(() => ({ ...state, setBirthday, setPeriods, setState: setNewState }), [state]);
 
   return <StorageContext.Provider value={value}>{children}</StorageContext.Provider>;
 };

@@ -7,26 +7,11 @@ interface Props extends StyleProps, TestIdProps {
   item: LifePeriod;
 }
 
-const yearsNumToStr = (val: number) => {
-  if (val >= 9 && val <= 20) return 'років';
-  const rest = val % 10;
-  const base = rest <= 4 ? 'рік' : 'років';
-  return [2, 3, 4].includes(rest) ? `${base}и` : base;
-};
+const yearsNumToStr = (num: number) => (num === 1 ? 'year' : 'years');
 
-const daysNumToStr = (val: number) => {
-  if (val >= 9 && val <= 20) return 'днів';
-  const rest = val % 10;
-  if (rest === 1) return 'день';
-  return [2, 3, 4].includes(rest) ? `дня` : 'днів';
-};
+const monthsNumToStr = (num: number) => (num === 1 ? 'month' : 'months');
 
-const monthsNumToStr = (val: number) => {
-  if (val >= 9 && val <= 20) return 'місяців';
-  const rest = val % 10;
-  if (rest === 1) return 'місяць';
-  return [2, 3, 4].includes(rest) ? `місяця` : 'місяців';
-};
+const daysNumToStr = (num: number) => (num === 1 ? 'day' : 'days');
 
 const periodToIntervalStr = ({ start, end }: LifePeriod) => {
   const years = Math.floor((end - start) / yearMs);

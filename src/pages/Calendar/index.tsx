@@ -1,33 +1,33 @@
+import { FileOpenBtn } from '@components/Buttons';
 import { CalendarPeriodInfo, CalendarWeek } from '@components/Calendar';
 import { PageFooter } from '@components/Page';
+import { Log } from '@core/log';
 import {
   DatePeriod,
-  LifePeriod,
   isDateInsidePeriod,
+  LifePeriod,
   lifePeriodsForPeriod,
   weeksWithStartDate,
   yearsWithStartDate,
 } from '@core/periods';
-import { useStorage } from '@core/storage';
+import { isState, useStorage } from '@core/storage';
 import { mc, StyleProps } from '@styles';
-import { getDayBeginning, getFullYearsBetweenDates, strToTs, ts, weekMs, yearMs } from '@utils';
-import React, { FC, useMemo, useState } from 'react';
+import { getDayBeginning, getFullYearsBetweenDates, isStr, strToTs, ts, weekMs } from '@utils';
+import React, { ChangeEvent, FC, useMemo, useState } from 'react';
+
+const log = Log('CalenderPage');
 
 type Props = StyleProps;
 
 export const CalenderPage: FC<Props> = ({ className }) => {
   const curTs = useMemo(() => ts(), []);
-  const { birthday, periods, setBirthday, setPeriods } = useStorage();
+  const { birthday, periods, setBirthday, setPeriods, setState } = useStorage();
   const [hoveredPeriods, setHoveredPeriods] = useState<LifePeriod[]>([]);
 
-  if (!birthday) return null;
-  const birthdayTs = getDayBeginning(strToTs(birthday));
+  const birthdayTs = getDayBeginning(strToTs(birthday || '1990-01-01'));
 
   const renderYear = (year: number) => {
     const weeks = weeksWithStartDate(year);
-    const yearStart = year;
-    const yearEnd = year + yearMs - 1;
-    const curYearHoveredPeriods = hoveredPeriods.filter(itm => itm.start >= yearStart && itm.start <= yearEnd);
     return (
       <div key={`${year}`} className={mc('relative', 'flex flex-row justify-between items-center mb-1')}>
         <div className={mc('absolute w-[20px] left-[-24px]', 'text-xs text-dove-gray font-bold text-right')}>
@@ -51,6 +51,23 @@ export const CalenderPage: FC<Props> = ({ className }) => {
         />
       </div>
     );
+  };
+
+  const hanldeImportClick = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.length) return;
+    const fileReader = new FileReader();
+    fileReader.readAsText(e.target.files[0], 'UTF-8');
+    fileReader.onload = e => {
+      try {
+        const result = e.target?.result;
+        if (!result || !isStr(result)) return alert('Import file error');
+        const data = JSON.parse(result);
+        if (!isState(data)) return alert('Import file error');
+        setState(data);
+      } catch (err) {
+        log.err('Import file error', { err });
+      }
+    };
   };
 
   const years = yearsWithStartDate(birthdayTs, 90);
@@ -77,9 +94,15 @@ export const CalenderPage: FC<Props> = ({ className }) => {
           </p>
           <p>{'It would be beneficial to read this article first to better understand what this app is about.'}</p>
         </div>
+        <div className={mc('flex flex-row', 'grid grid-cols-12 gap-4')}>
+          <div className={mc('col-start-3 col-span-8', 'space-x-1', 'flex flex-row justify-center items-center')}>
+            <FileOpenBtn accept=".json,application/json" onChange={hanldeImportClick}>
+              {'Import'}
+            </FileOpenBtn>
+          </div>
+        </div>
         <div className={mc('grid grid-cols-12 gap-4')}>
-          <div className="col-span-2" />
-          <div className="col-span-8">{years.map(year => renderYear(year))}</div>
+          <div className="col-start-3 col-span-8">{years.map(year => renderYear(year))}</div>
           <div className="col-span-2 relative">
             {!!hoveredPeriods.length && (
               <div className="sticky top-2">
