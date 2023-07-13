@@ -31,7 +31,7 @@ const periodToIntervalStr = ({ start, end }: LifePeriod) => {
 };
 
 export const CalendarPeriodInfo: FC<Props> = ({ testId, className, style, item }) => {
-  const { color, name, start, end } = item;
+  const { color, name, start, end, description } = item;
   return (
     <div
       data-testid={testId}
@@ -39,6 +39,7 @@ export const CalendarPeriodInfo: FC<Props> = ({ testId, className, style, item }
       style={ms({ color, borderTop: `2px solid ${color}` }, style)}
     >
       <div className={mc('font-semibold')}>{name}</div>
+      {!!description && <div className={mc('text-md')}>{description}</div>}
       <div className={mc('text-xs')}>{`${tsToStr(start)} - ${tsToStr(end)}`}</div>
       <div className={mc('text-xs')}>{`${periodToIntervalStr(item)}`}</div>
     </div>

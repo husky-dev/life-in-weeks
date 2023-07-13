@@ -32,7 +32,8 @@ const dataToPeriod = (val: unknown): LifePeriod | undefined => {
   if (isNaN(end)) return undefined;
   const color = isStr(val.color) ? val.color : '#eee';
   const tags = isStrArr(val.tags) ? val.tags : [];
-  return { name, start, end, color, tags };
+  const description = isStr(val.description) ? val.description : undefined;
+  return { name, start, end, description, color, tags };
 };
 
 interface StorageContext extends State {
