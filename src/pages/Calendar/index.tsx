@@ -1,4 +1,5 @@
 import { FileOpenBtn } from '@components/Buttons';
+import TagBtn from '@components/Buttons/Tag';
 import { CalendarPeriodInfo, CalendarWeek } from '@components/Calendar';
 import { PageFooter } from '@components/Page';
 import { Log } from '@core/log';
@@ -70,6 +71,8 @@ export const CalenderPage: FC<Props> = ({ className }) => {
     };
   };
 
+  const handleTagClick = (name: string) => {};
+
   const years = yearsWithStartDate(birthdayTs, 90);
 
   return (
@@ -108,7 +111,7 @@ export const CalenderPage: FC<Props> = ({ className }) => {
               <div className="sticky top-2">
                 <div className={mc('flex flex-col', 'space-y-4')}>
                   {hoveredPeriods.map(itm => (
-                    <CalendarPeriodInfo key={`${itm.start}-${itm.end}`} item={itm} />
+                    <CalendarPeriodInfo key={`${itm.start}-${itm.end}`} item={itm} onTagClick={handleTagClick} />
                   ))}
                 </div>
               </div>

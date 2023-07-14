@@ -1,10 +1,12 @@
+import { TagBtn } from '@components/Buttons';
 import { LifePeriod } from '@core/periods';
-import { mc, ms, StyleProps } from '@styles';
+import { mc, ms, Style, StyleProps } from '@styles';
 import { dayMs, monthMs, TestIdProps, tsToStr, yearMs } from '@utils';
 import React, { FC } from 'react';
 
 interface Props extends StyleProps, TestIdProps {
   item: LifePeriod;
+  onTagClick?: (name: string) => void;
 }
 
 const yearsNumToStr = (num: number) => (num === 1 ? 'year' : 'years');
@@ -30,12 +32,18 @@ const periodToIntervalStr = ({ start, end }: LifePeriod) => {
   return items.join(', ');
 };
 
-export const CalendarPeriodInfo: FC<Props> = ({ testId, className, style, item }) => {
-  const { color, name, start, end, description } = item;
+const tagToColors = (tag: string): Style | undefined => {
+  if (tag === 'life') return { backgroundColor: '#EE7CC7', color: '#fff' };
+  if (tag === 'work') return { backgroundColor: '#F09737', color: '#fff' };
+  if (tag === 'studing') return { backgroundColor: '#68D4FA', color: '#fff' };
+};
+
+export const CalendarPeriodInfo: FC<Props> = ({ testId, className, style, item, onTagClick }) => {
+  const { color, name, start, end, description, tags } = item;
   return (
     <div
       data-testid={testId}
-      className={mc('space-y-1', className)}
+      className={mc('space-y-2', className)}
       style={ms({ color, borderTop: `2px solid ${color}` }, style)}
     >
       <div className={mc('font-semibold')}>{name}</div>
@@ -44,6 +52,15 @@ export const CalendarPeriodInfo: FC<Props> = ({ testId, className, style, item }
         <div className={mc('text-xs')}>{`${tsToStr(start)} - ${tsToStr(end)}`}</div>
         <div className={mc('text-xs font-semibold')}>{`${periodToIntervalStr(item)}`}</div>
       </div>
+      {!!tags && !!tags.length && (
+        <div className="flex flex-row flex-wrap">
+          {tags.map(itm => (
+            <TagBtn key={itm} size="xs" style={tagToColors(itm)} onClick={() => onTagClick && onTagClick(itm)}>
+              {`#${itm}`}
+            </TagBtn>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
