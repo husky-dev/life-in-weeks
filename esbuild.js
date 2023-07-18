@@ -166,7 +166,7 @@ const run = async () => {
   log.debug('env=', env);
 
   log.info('copy public files');
-  copyFilesInFolder(`${cwd}/public`, distPath, ['ico', 'js', 'png', 'json']);
+  copyFilesInFolder(`${cwd}/public`, distPath, ['ico', 'js', 'png', 'json', 'svg', 'jpg', 'jpeg', 'txt', 'xml']);
 
   const buildOptions = {
     entryPoints: [entryFilePath],
