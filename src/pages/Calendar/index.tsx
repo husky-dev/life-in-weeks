@@ -1,5 +1,4 @@
 import { FileOpenBtn } from '@components/Buttons';
-import TagBtn from '@components/Buttons/Tag';
 import { CalendarPeriodInfo, CalendarWeek } from '@components/Calendar';
 import { PageFooter } from '@components/Page';
 import { Log } from '@core/log';
@@ -31,7 +30,7 @@ export const CalenderPage: FC<Props> = ({ className }) => {
     const weeks = weeksWithStartDate(year);
     return (
       <div key={`${year}`} className={mc('relative', 'flex flex-row justify-between items-center mb-1')}>
-        <div className={mc('absolute w-[20px] left-[-24px]', 'text-xs text-dove-gray font-bold text-right')}>
+        <div className={mc('absolute w-[20px] left-[-24px]', 'text-xs font-bold text-right')}>
           <div>{getFullYearsBetweenDates(birthdayTs, year) + 1}</div>
         </div>
         {weeks.map(week => renderWeek(week))}
@@ -80,17 +79,22 @@ export const CalenderPage: FC<Props> = ({ className }) => {
       <div className={mc('container', 'mx-auto', 'py-10 space-y-6')}>
         <div>
           <h1 className={mc('text-center text-3xl font-bold')}>{'Your Life in Weeks'}</h1>
-          <p className={mc('mt-0.5', 'text-dove-gray text-center text-xs')}>
+          <p className={mc('mt-0.5', 'text-center text-xs')}>
             {'By '}
-            <a className="underline hover:opacity-50" href="https://husky-dev.me" target="__blank">
+            <a className="link link-primary" href="https://husky-dev.me" target="__blank">
               {'Husky Dev'}
             </a>
           </p>
         </div>
-        <div className={mc('text-dove-gray text-center')}>
+        <div className={mc('text-center')}>
           <p>
             {`This is a web application inspired by Tim Urban's article, `}
-            <a className="underline" href="https://waitbutwhy.com/2014/05/life-weeks.html" target="__blank" rel="nofollow">
+            <a
+              className="link link-primary"
+              href="https://waitbutwhy.com/2014/05/life-weeks.html"
+              target="__blank"
+              rel="nofollow"
+            >
               {`"Your Life in Weeks"`}
             </a>
             {`. It helps you visualize your entire life in weeks.`}

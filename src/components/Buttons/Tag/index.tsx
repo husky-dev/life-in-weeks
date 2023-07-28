@@ -13,16 +13,7 @@ export const TagBtn: FC<Props> = ({ testId, className, style, children, href, si
   return (
     <a
       data-testid={testId}
-      className={mc(
-        'block',
-        size === 'sm' && 'text-sm px-2.5 py-0.5 font-medium',
-        size === 'xs' && 'text-xs px-1.5 py-0.5 font-normal',
-        'rounded-md',
-        'text-dove-gray text-center',
-        'hover:opacity-70 transition-opacity',
-        'bg-white-smoke',
-        className,
-      )}
+      className={mc('block', 'badge badge-primary', className)}
       style={ms(style)}
       role={!href ? 'button' : undefined}
       onClick={onClick}

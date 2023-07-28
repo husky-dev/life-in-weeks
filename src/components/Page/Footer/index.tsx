@@ -7,16 +7,16 @@ type Props = StyleProps & TestIdProps;
 
 export const PageFooter: FC<Props> = ({ testId, className, style }) => {
   return (
-    <footer data-testid={testId} className={mc('space-y-0.5', 'text-center text-xs text-dove-gray', className)} style={style}>
+    <footer data-testid={testId} className={mc('space-y-0.5', 'text-center text-xs', className)} style={style}>
       <div>
         <span>{'© 2023 '}</span>
-        <a className="underline" href="https://life.husky-dev.me">
+        <a className="link" href="https://life.husky-dev.me">
           {'Your Life in Weeks'}
         </a>
       </div>
       <div>
         <span>{'Powered by '}</span>
-        <a className="underline" href="https://husky-dev.me" target="__blank">
+        <a className="link" href="https://husky-dev.me" target="__blank">
           {'Husky Dev'}
         </a>
       </div>
