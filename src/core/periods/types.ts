@@ -9,6 +9,7 @@ export interface LifePeriod extends DatePeriod {
   description?: string;
   tags?: string[];
   style?: LifePeriodColorStyle;
+  hidden?: boolean;
 }
 
 type LifePeriodColorStyle = 'solid' | 'gradient';

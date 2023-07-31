@@ -1,8 +1,8 @@
-import { compact, isArr, isNum, isStr, isStrArr, isStrOrUndef, isUndef, isUnknownDict } from '@utils';
+import { dataToPeriod, LifePeriod } from '@core/periods';
+import { compact, isArr, isStr, isStrOrUndef, isUnknownDict } from '@utils';
 import React, { createContext, FC, ReactNode, useContext, useMemo, useState } from 'react';
 
 import { getStorageParam } from './utils';
-import { LifePeriod } from '@core/periods';
 
 interface State {
   birthday?: string;
@@ -20,20 +20,6 @@ export const dataToState = (data: unknown): State | undefined => {
   if (!isArr(data.periods)) return { birthday, periods: [] };
   const periods = compact(data.periods.map(dataToPeriod));
   return { birthday, periods };
-};
-
-const dataToPeriod = (val: unknown): LifePeriod | undefined => {
-  if (!isUnknownDict(val)) return undefined;
-  const { name, start: rawStart, end: rawEnd } = val;
-  if (!isStr(name) || !(isStr(rawStart) || isNum(rawStart)) || !(isStr(rawEnd) || isNum(rawEnd))) return undefined;
-  const start = new Date(rawStart).getTime();
-  if (isNaN(start)) return undefined;
-  const end = new Date(rawEnd).getTime();
-  if (isNaN(end)) return undefined;
-  const color = isStr(val.color) ? val.color : '#eee';
-  const tags = isStrArr(val.tags) ? val.tags : [];
-  const description = isStr(val.description) ? val.description : undefined;
-  return { name, start, end, description, color, tags };
 };
 
 interface StorageContext extends State {
@@ -72,7 +58,7 @@ export const StorageProvider: FC<{ children: ReactNode }> = ({ children }) => {
     stateStorage.set(newState);
   };
 
-  const value = useMemo(() => ({ ...state, setBirthday, setPeriods, setState: setNewState }), [state]);
+  const value = useMemo(() => ({ ...state, setBirthday, setPeriods, setState: setNewState }), [state.birthday, state.periods]);
 
   return <StorageContext.Provider value={value}>{children}</StorageContext.Provider>;
 };

@@ -24,6 +24,8 @@ export const CalenderPage: FC<Props> = ({ className }) => {
   const { birthday, periods, setState } = useStorage();
   const [hoveredPeriods, setHoveredPeriods] = useState<LifePeriod[]>([]);
 
+  const visiblePeriods = periods.filter(itm => !itm.hidden);
+
   const birthdayTs = getDayBeginning(strToTs(birthday || '1990-01-01'));
 
   const renderYear = (year: number) => {
@@ -40,7 +42,7 @@ export const CalenderPage: FC<Props> = ({ className }) => {
 
   const renderWeek = (weekStart: number) => {
     const weekPeriod: DatePeriod = { start: weekStart, end: weekStart + weekMs };
-    const weekLifePeriods = lifePeriodsForPeriod(periods, weekPeriod);
+    const weekLifePeriods = lifePeriodsForPeriod(visiblePeriods, weekPeriod);
     const isCurrentWeek = isDateInsidePeriod(curTs, weekPeriod);
     return (
       <div key={`${weekStart}`} className={mc('flex justify-center items-center')}>
