@@ -1,5 +1,3 @@
-import { isStr } from '@utils';
-
 type AppEnv = 'production' | 'development';
 
 const getAppEnv = (): AppEnv => {

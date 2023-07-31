@@ -5,11 +5,10 @@ import React, { FC, MouseEvent, ReactNode } from 'react';
 interface Props extends StyleProps, TestIdProps {
   children?: ReactNode;
   href?: string;
-  size?: 'sm' | 'xs';
   onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-export const TagBtn: FC<Props> = ({ testId, className, style, children, href, size = 'sm', onClick }) => {
+export const TagBtn: FC<Props> = ({ testId, className, style, children, href, onClick }) => {
   return (
     <a
       data-testid={testId}
