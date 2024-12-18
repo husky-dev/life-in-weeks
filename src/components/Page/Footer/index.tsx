@@ -1,6 +1,6 @@
-import { config } from '@core/config';
-import { mc, StyleProps } from '@styles';
-import { TestIdProps } from '@utils';
+import { config } from '@/core/config';
+import { mc, StyleProps } from '@/styles';
+import { TestIdProps } from '@/utils';
 import React, { FC } from 'react';
 
 type Props = StyleProps & TestIdProps;

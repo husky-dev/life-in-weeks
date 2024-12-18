@@ -9,8 +9,8 @@
 **Scope**: `typescript,typescriptreact`
 
 ```tsx
-import { mc, StyleProps } from '@styles';
-import { TestIdProps } from '@utils';
+import { mc, StyleProps } from '@/styles';
+import { TestIdProps } from '@/utils';
 import React, { FC } from 'react';
 
 type Props = StyleProps & TestIdProps;

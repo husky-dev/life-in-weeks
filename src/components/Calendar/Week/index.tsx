@@ -1,5 +1,5 @@
-import { LifePeriod } from '@core/periods';
-import { mc, StyleProps } from '@styles';
+import { LifePeriod } from '@/core/life';
+import { mc, StyleProps } from '@/styles';
 import React, { FC, MouseEvent } from 'react';
 
 interface Props extends StyleProps {

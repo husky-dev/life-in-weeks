@@ -1,4 +1,4 @@
-import { isArr, isBool } from '@utils';
+import { isArr, isBool } from '@/utils';
 import { MergeStyleVals, Style } from './types';
 
 /**

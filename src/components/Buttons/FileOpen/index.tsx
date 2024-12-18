@@ -1,5 +1,5 @@
-import { mc, StyleProps } from '@styles';
-import { TestIdProps } from '@utils';
+import { mc, StyleProps } from '@/styles';
+import { TestIdProps } from '@/utils';
 import React, { ChangeEvent, FC, ReactNode } from 'react';
 
 interface Props extends StyleProps, TestIdProps {

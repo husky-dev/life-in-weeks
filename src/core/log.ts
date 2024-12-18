@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { select, UnknownDict } from '@utils';
+import { select, UnknownDict } from '@/utils';
 import { config } from './config';
 
 // import { config } from './config';

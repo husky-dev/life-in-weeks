@@ -1,5 +1,5 @@
-import { mc, ms, StyleProps } from '@styles';
-import { TestIdProps } from '@utils';
+import { mc, ms, StyleProps } from '@/styles';
+import { TestIdProps } from '@/utils';
 import React, { FC, MouseEvent, ReactNode } from 'react';
 
 interface Props extends StyleProps, TestIdProps {

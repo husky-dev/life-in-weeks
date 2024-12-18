@@ -1,7 +1,7 @@
-import { TagBtn } from '@components/Buttons';
-import { LifePeriod } from '@core/periods';
-import { mc, ms, StyleProps } from '@styles';
-import { dayMs, monthMs, TestIdProps, tsToStr, yearMs } from '@utils';
+import { TagBtn } from '@/components/Buttons';
+import { LifePeriod } from '@/core/life';
+import { mc, ms, StyleProps } from '@/styles';
+import { dayMs, monthMs, TestIdProps, tsToStr, yearMs } from '@/utils';
 import React, { FC } from 'react';
 
 interface Props extends StyleProps, TestIdProps {
